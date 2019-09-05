@@ -49,6 +49,7 @@ group :development, :test do
   gem 'rails-erd'
   gem 'annotate'
   gem 'rubocop-airbnb'
+  gem 'rails-controller-testing'
 end
 
 group :development do

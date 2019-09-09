@@ -9,29 +9,15 @@ RSpec.describe "Products", type: :system do
 
   it "products show page" do
     expect(page).to have_title "#{product.name} | BIGBAG Store"
+    within(".breadcrumb") do
+      expect(page).to have_link "Home"
+      expect(page).to have_content product.name
+    end
+    within(".navbar-right") do
+      expect(page).to have_link "Home"
+    end
     expect(page).to have_content product.name
     expect(page).to have_content product.display_price
     expect(page).to have_content product.description
-  end
-
-  it "redirects to potepan_root_path when 'Home' is clicked in light section" do
-    within(".breadcrumb") do
-      click_link "Home"
-      expect(current_path).to eq potepan_root_path
-    end
-  end
-
-  it "redirects to potepan_root_path when 'Home' is clicked in header section" do
-    within(".navbar-right") do
-      click_link "Home"
-      expect(current_path).to eq potepan_root_path
-    end
-  end
-
-  it "redirects to potepan_root_path when 'logo' is clicked in header section" do
-    within(".navbar-header") do
-      click_link "logo"
-      expect(current_path).to eq potepan_root_path
-    end
   end
 end

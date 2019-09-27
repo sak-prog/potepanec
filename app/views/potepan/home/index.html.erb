@@ -1,2 +1,174 @@
-<h1>Potepan::Home#index</h1>
-<p>Find me in app/views/potepan/home/index.html.erb</p>
+<% provide(:title, "Home") %>
+<!-- BANNER -->
+<div class="bannercontainer">
+  <div class="fullscreenbanner-container">
+    <div class="fullscreenbanner">
+      <ul>
+        <li>
+          <%= image_tag("home/banner-slider/slider-bg.jpg", :alt => "slidebg1", data:{bgposition: "center center", bgfit: "cover" , bgrepeat: "no-repeat"}) %>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN CONTENT SECTION -->
+<section class="mainContent clearfix">
+  <div class="container">
+    <div class="row featuredCollection">
+      <div class="col-xs-12">
+        <div class="page-header">
+          <h4>人気カテゴリー</h4>
+        </div>
+      </div>
+      <div class="col-sm-4 col-xs-12">
+        <div class="thumbnail" onclick="location.href='single_product.html';">
+          <div class="imageWrapper">
+            <%= image_tag("home/featured-collection/featured-collection-01.jpg", :alt => "feature-collection-image") %>
+            <div class="masking"><a href="product_grid_left_sidebar.html" class="btn viewBtn">View Shirts</a></div>
+          </div>
+          <div class="caption">
+            <h4>Shirts</h4>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-4 col-xs-12">
+        <div class="thumbnail" onclick="location.href='single_product.html';">
+          <div class="imageWrapper">
+            <%= image_tag("home/featured-collection/featured-collection-02.jpg", :alt => "feature-collection-image") %>
+            <div class="masking"><a href="product_grid_left_sidebar.html" class="btn viewBtn">View Bags</a></div>
+          </div>
+          <div class="caption">
+            <h4>Bags</h4>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-4 col-xs-12">
+        <div class="thumbnail" onclick="location.href='single_product.html';">
+          <div class="imageWrapper">
+            <%= image_tag("home/featured-collection/featured-collection-03.jpg", :alt => "feature-collection-image") %>
+            <div class="masking"><a href="product_grid_left_sidebar.html" class="btn viewBtn">View Denim</a></div>
+          </div>
+          <div class="caption">
+            <h4>Denim</h4>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row featuredProducts">
+      <div class="col-xs-12">
+        <div class="page-header">
+          <h4>新着商品</h4>
+        </div>
+      </div>
+      <div class="col-xs-12">
+        <div class="owl-carousel featuredProductsSlider">
+          <% @new_products.each do |new_product| %>
+            <div class="slide">
+              <%= link_to potepan_product_path(new_product.id) do %>
+                <div class="productImage clearfix">
+                  <%= image_tag(new_product.display_image.attachment.url(:large)) %>
+                </div>
+                <div class="productCaption clearfix">
+                  <h5><%= new_product.name %></h5>
+                  <h3><%= new_product.display_price %></h3>
+                </div>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LIGHT SECTION -->
+<section class="lightSection clearfix">
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="owl-carousel partnersLogoSlider">
+          <div class="slide">
+            <div class="partnersLogo clearfix">
+              <%= image_tag("home/partners/partner-01.png", :alt => "partner-img") %>
+            </div>
+          </div>
+          <div class="slide">
+            <div class="partnersLogo clearfix">
+              <%= image_tag("home/partners/partner-02.png", :alt => "partner-img") %>
+            </div>
+          </div>
+          <div class="slide">
+            <div class="partnersLogo clearfix">
+              <%= image_tag("home/partners/partner-03.png", :alt => "partner-img") %>
+            </div>
+          </div>
+          <div class="slide">
+            <div class="partnersLogo clearfix">
+              <%= image_tag("home/partners/partner-04.png", :alt => "partner-img") %>
+            </div>
+          </div>
+          <div class="slide">
+            <div class="partnersLogo clearfix">
+              <%= image_tag("home/partners/partner-05.png", :alt => "partner-img") %>
+            </div>
+          </div>
+          <div class="slide">
+            <div class="partnersLogo clearfix">
+              <%= image_tag("home/partners/partner-01.png", :alt => "partner-img") %>
+            </div>
+          </div>
+          <div class="slide">
+            <div class="partnersLogo clearfix">
+              <%= image_tag("home/partners/partner-02.png", :alt => "partner-img") %>
+            </div>
+          </div>
+          <div class="slide">
+            <div class="partnersLogo clearfix">
+              <%= image_tag("home/partners/partner-03.png", :alt => "partner-img") %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PORDUCT QUICK VIEW MODAL -->
+<div class="modal fade quick-view" tabindex="-1" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <div class="media">
+          <div class="media-left">
+            <%= image_tag("products/quick-view/quick-view-01.jpg", :class => "media-object", :alt => "Image") %>
+          </div>
+          <div class="media-body">
+            <h2>Old Skool Navy</h2>
+            <h3>149円</h3>
+            <p>Classic sneaker from Vans. Cotton canvas and suede upper. Textile lining with heel stabilizer and ankle support. Contrasting laces. Sits on a classic waffle rubber sole.</p>
+            <span class="quick-drop">
+              <select name="guiest_id3" id="guiest_id3" class="select-drop">
+                <option value="0">S</option>
+                <option value="1">M</option>
+                <option value="2">L</option>
+                <option value="3">XL</option>
+              </select>
+            </span>
+            <span class="quick-drop resizeWidth">
+              <select name="guiest_id4" id="guiest_id4" class="select-drop">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+              </select>
+            </span>
+            <div class="btn-area">
+              <a href="cart_page.html" class="btn btn-primary btn-block">カートへ入れる <i class="fa fa-angle-right" aria-hidden="true"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

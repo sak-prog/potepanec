@@ -29,7 +29,7 @@
   <div class="panel panel-default filterNormal">
     <div class="panel-heading">色から探す</div>
     <div class="panel-body">
-      <ul class="list-unstyled">
+      <ul class="list-unstyled filter-by-color">
         <% colors.each do |color| %>
           <% number = Spree::Product.count_products_with_option_value(taxon, color.name) %>
           <% unless number.zero? %>

@@ -7,7 +7,7 @@ Spree::Product.class_eval do
     Spree::Product.in_taxon(taxon).includes(option_types: :option_values).where(spree_option_values: { name: option_value }).count
   end
 
-  scope :filter_by_taxon, -> (taxon) { in_taxon(taxon).includes(master: [:default_price, :images]) }
+  scope :filter_by_taxon, -> (taxon) { in_taxon(taxon).includes(master: [:default_price, :images]).includes(option_types: :option_values).distinct }
 
   scope :filter_by_option_value, -> (value) do
     includes(master: [:default_price, :images]).includes(option_types: :option_values).where(spree_option_values: { name: value })

@@ -4,10 +4,10 @@ RSpec.describe "Categories", type: :system do
   let(:taxonomy) { create(:taxonomy) }
   let(:taxon1) { create(:taxon, taxonomy: taxonomy, parent: taxonomy.root) }
   let(:taxon2) { create(:taxon, taxonomy: taxonomy, parent: taxonomy.root) }
-  let!(:product) { create(:product, taxons: [taxon1], option_types: [option_type_color]) }
-  let!(:other_color_product) { create(:product, taxons: [taxon1]) }
   let(:option_type_color) { create(:option_type, presentation: "Color", option_values: [option_value_color]) }
   let(:option_value_color) { create(:option_value, name: "Red") }
+  let!(:product) { create(:product, taxons: [taxon1], option_types: [option_type_color]) }
+  let!(:other_color_product) { create(:product, taxons: [taxon1]) }
 
   before do
     visit potepan_category_path(id: taxon1.id)
@@ -53,5 +53,25 @@ RSpec.describe "Categories", type: :system do
     end
     expect(page).to have_content product.name
     expect(page).not_to have_content other_color_product.name
+  end
+
+  it "filter by sort arrivals_desc" do
+    select("新着順", from: "sort")
+    expect(page).to have_select("sort", selected: "新着順")
+  end
+
+  it "filter by sort arrivals_asc" do
+    select("古い順", from: "sort")
+    expect(page).to have_select("sort", selected: "古い順")
+  end
+
+  it "filter by sort low_price" do
+    select("安い順", from: "sort")
+    expect(page).to have_select("sort", selected: "安い順")
+  end
+
+  it "filter by sort high_price" do
+    select("高い順", from: "sort")
+    expect(page).to have_select("sort", selected: "高い順")
   end
 end

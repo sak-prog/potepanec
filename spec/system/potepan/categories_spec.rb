@@ -46,15 +46,6 @@ RSpec.describe "Categories", type: :system do
     expect(page).not_to have_content product.display_price
   end
 
-  it "filter by color" do
-    within ".filter-by-color" do
-      expect(page).to have_content("Red(1)")
-      click_link "Red"
-    end
-    expect(page).to have_content product.name
-    expect(page).not_to have_content other_color_product.name
-  end
-
   it "filter by sort arrivals_desc" do
     select("新着順", from: "sort")
     expect(page).to have_select("sort", selected: "新着順")

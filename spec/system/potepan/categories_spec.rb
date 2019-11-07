@@ -4,9 +4,14 @@ RSpec.describe "Categories", type: :system do
   let(:taxonomy) { create(:taxonomy) }
   let(:taxon1) { create(:taxon, taxonomy: taxonomy, parent: taxonomy.root) }
   let(:taxon2) { create(:taxon, taxonomy: taxonomy, parent: taxonomy.root) }
-  let(:option_type_color) { create(:option_type, presentation: "Color", option_values: [option_value_color]) }
-  let(:option_value_color) { create(:option_value, name: "Red") }
-  let!(:product) { create(:product, taxons: [taxon1], option_types: [option_type_color]) }
+  let(:taxon3) { create(:taxon, taxonomy: taxonomy, parent: taxonomy.root) }
+  let!(:product1) { create(:product, taxons: [taxon1]) }
+  let!(:product2)  { create :product,  name: 'Skinny-denim', taxons: [taxon3], option_types: [option_type1, option_type2], variants: [variant1] }
+  let!(:variant1)  { create :variant,  option_values: [option_value1, option_value2] }
+  let!(:option_type1)  { create :option_type,  presentation: 'Size', position: 1, option_values: [option_value1] }
+  let!(:option_type2)  { create :option_type,  presentation: 'Color', position: 1, option_values: [option_value2] }
+  let!(:option_value1) { create :option_value, presentation: 'XL' }
+  let!(:option_value2) { create :option_value, presentation: 'Red' }
   let!(:other_color_product) { create(:product, taxons: [taxon1]) }
 
   before do
@@ -28,31 +33,22 @@ RSpec.describe "Categories", type: :system do
       expect(page).to have_content "(#{taxon1.products.count})"
     end
     within ".productBox", match: :first do
-      expect(page).to have_content product.name
-      expect(page).to have_content product.display_price
+      expect(page).to have_content product1.name
+      expect(page).to have_content product1.display_price
     end
     expect(page).to have_content other_color_product.name
   end
 
   it "redirect to product page" do
-    expect(page).to have_link product.name
-    click_link product.name
-    expect(current_path).to eq potepan_product_path(product.id)
+    expect(page).to have_link product1.name
+    click_link product1.name
+    expect(current_path).to eq potepan_product_path(product1.id)
   end
 
   it "other product is not show category page" do
     visit potepan_category_path(id: taxon2.id)
-    expect(page).not_to have_content product.name
-    expect(page).not_to have_content product.display_price
-  end
-
-  it "filter by color" do
-    within ".filter-by-color" do
-      expect(page).to have_content("Red(1)")
-      click_link "Red"
-    end
-    expect(page).to have_content product.name
-    expect(page).not_to have_content other_color_product.name
+    expect(page).not_to have_content product1.name
+    expect(page).not_to have_content product1.display_price
   end
 
   it "filter by sort arrivals_desc" do
@@ -73,5 +69,12 @@ RSpec.describe "Categories", type: :system do
   it "filter by sort high_price" do
     select("高い順", from: "sort")
     expect(page).to have_select("sort", selected: "高い順")
+  end
+
+  it "filter by option_values" do
+    expect(page).to have_content "サイズから探す"
+    expect(page).to have_content "色から探す"
+    expect(page).to have_content "XL"
+    expect(page).to have_content "Red"
   end
 end

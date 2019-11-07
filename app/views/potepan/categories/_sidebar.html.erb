@@ -30,15 +30,12 @@
     <div class="panel-heading">色から探す</div>
     <div class="panel-body">
       <ul class="list-unstyled filter-by-color">
-        <% colors.each do |color| %>
-          <% number = Spree::Product.count_products_with_option_value(taxon, color.name) %>
-          <% unless number.zero? %>
-            <li id = "<%= "selected-option-value" if color.name==params[:color] %>">
-              <%= link_to(potepan_category_path(id: taxon.id, color: color.name)) do %>
-                <%= color.name %><span><%= "(#{number})" %></span>
-              <% end %>
-            </li>
-          <% end %>
+        <% option_types.colors.each do |color| %>
+          <li>
+            <%= link_to (potepan_category_path(id: taxon.id, option: color.name)) do %>
+              <%= color.presentation %><span>(<%= count_products_with_option_value(color) %>)</span>
+            <% end %>
+          </li>
         <% end %>
       </ul>
     </div>
@@ -47,10 +44,13 @@
     <div class="panel-heading">サイズから探す</div>
     <div class="panel-body">
       <ul class="list-unstyled clearfix">
-        <li><a href="#">S<span>(15)</span></a></li>
-        <li><a href="#">M<span>(10)</span></a></li>
-        <li><a href="#">L<span>(7)</span></a></li>
-        <li><a href="#">XL<span>(12)</span></a></li>
+        <% option_types.sizes.each do |size| %>
+          <li>
+            <%= link_to (potepan_category_path(id: taxon.id, option: size.name)) do %>
+              <%= size.presentation %><span>(<%= count_products_with_option_value(size) %>)</span>
+            <% end %>
+          </li>
+        <% end %>
       </ul>
     </div>
   </div>

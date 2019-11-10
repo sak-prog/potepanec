@@ -9,9 +9,9 @@ Spree::Product.class_eval do
     joins(variants: :option_values).where(spree_option_values: { name: option }).distinct
   end
 
-  def self.search_word(search_word)
-    return Spree::Product.includes(master: [:default_price, :images]) unless search_word
-    Spree::Product.includes(master: [:default_price, :images]).where('name LIKE ?', "%#{search_word}%")
+  def self.search(search)
+    includes(master: [:default_price, :images]).
+      where(['name LIKE ? OR description LIKE ?', "%#{sanitize_sql_like(search)}%", "%#{sanitize_sql_like(search)}%"]).distinct
   end
 
   scope :sort_in_order, -> (sort) do

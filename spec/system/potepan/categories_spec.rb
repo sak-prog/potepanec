@@ -8,10 +8,10 @@ RSpec.describe "Categories", type: :system do
   let!(:product1) { create(:product, taxons: [taxon1]) }
   let!(:product2)  { create :product,  name: 'Skinny-denim', taxons: [taxon3], option_types: [option_type1, option_type2], variants: [variant1] }
   let!(:variant1)  { create :variant,  option_values: [option_value1, option_value2] }
-  let!(:option_type1)  { create :option_type,  presentation: 'Size', position: 1, option_values: [option_value1] }
-  let!(:option_type2)  { create :option_type,  presentation: 'Color', position: 1, option_values: [option_value2] }
-  let!(:option_value1) { create :option_value, presentation: 'XL' }
-  let!(:option_value2) { create :option_value, presentation: 'Red' }
+  let!(:option_type1)  { create(:option_type,  presentation: 'Size', position: 1, option_values: [option_value1]) }
+  let!(:option_type2)  { create(:option_type,  presentation: 'Color', position: 1, option_values: [option_value2]) }
+  let!(:option_value1) { create(:option_value, presentation: 'XL') }
+  let!(:option_value2) { create(:option_value, presentation: 'Red') }
   let!(:other_color_product) { create(:product, taxons: [taxon1]) }
 
   before do

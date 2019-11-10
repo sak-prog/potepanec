@@ -9,6 +9,11 @@ Spree::Product.class_eval do
     joins(variants: :option_values).where(spree_option_values: { name: option }).distinct
   end
 
+  def self.search_word(search_word)
+    return Spree::Product.includes(master: [:default_price, :images]) unless search_word
+    Spree::Product.includes(master: [:default_price, :images]).where('name LIKE ?', "%#{search_word}%")
+  end
+
   scope :sort_in_order, -> (sort) do
     case sort
     when "arrivals_desc"

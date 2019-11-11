@@ -27,36 +27,9 @@
               </ul>
             </li>
             <li class="dropdown">
-              <a href="cart-page.html" class="dropdown-toggle" data-toggle="dropdown disabled"><i class="fa fa-shopping-cart"></i></a>
-              <ul class="dropdown-menu dropdown-menu-right">
-                <li>Item(s) in your cart</li>
-                <li>
-                  <a href="#">
-                    <div class="media">
-                      <%= image_tag("img/home/cart-items/cart-item-01.jpg", :class => "media-left media-object", :alt => "cart-Image") %>
-                      <div class="media-body">
-                        <h5 class="media-heading">INCIDIDUNT UT <br><span>2 X $199</span></h5>
-                      </div>
-                    </div>
-                  </a>
-                </li>
-                <li>
-                  <a href="#">
-                    <div class="media">
-                      <%= image_tag("img/home/cart-items/cart-item-01.jpg", :class => "media-left media-object", :alt => "cart-Image") %>
-                      <div class="media-body">
-                        <h5 class="media-heading">INCIDIDUNT UT <br><span>2 X $199</span></h5>
-                      </div>
-                    </div>
-                  </a>
-                </li>
-                <li>
-                  <div class="btn-group" role="group" aria-label="...">
-                    <button type="button" class="btn btn-default">Shopping Cart</button>
-                    <button type="button" class="btn btn-default">Checkout</button>
-                  </div>
-                </li>
-              </ul>
+              <%= link_to potepan_cart_path do %>
+                <i class="fa fa-shopping-cart"></i>
+              <% end %>
             </li>
           </ul>
         </div>

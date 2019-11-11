@@ -11,7 +11,6 @@
     </div>
   </div>
 </div>
-
 <!-- MAIN CONTENT SECTION -->
 <section class="mainContent clearfix">
   <div class="container">
@@ -25,7 +24,9 @@
         <div class="thumbnail" onclick="location.href='single_product.html';">
           <div class="imageWrapper">
             <%= image_tag("home/featured-collection/featured-collection-01.jpg", :alt => "feature-collection-image") %>
-            <div class="masking"><a href="product_grid_left_sidebar.html" class="btn viewBtn">View Shirts</a></div>
+            <div class="masking">
+              <%= link_to "View Shirts", potepan_category_path(id:6), class:"btn viewBtn" %>
+            </div>
           </div>
           <div class="caption">
             <h4>Shirts</h4>
@@ -36,7 +37,9 @@
         <div class="thumbnail" onclick="location.href='single_product.html';">
           <div class="imageWrapper">
             <%= image_tag("home/featured-collection/featured-collection-02.jpg", :alt => "feature-collection-image") %>
-            <div class="masking"><a href="product_grid_left_sidebar.html" class="btn viewBtn">View Bags</a></div>
+            <div class="masking">
+              <%= link_to "View Bags", potepan_category_path(id:3), class:"btn viewBtn" %>
+            </div>
           </div>
           <div class="caption">
             <h4>Bags</h4>
@@ -47,7 +50,9 @@
         <div class="thumbnail" onclick="location.href='single_product.html';">
           <div class="imageWrapper">
             <%= image_tag("home/featured-collection/featured-collection-03.jpg", :alt => "feature-collection-image") %>
-            <div class="masking"><a href="product_grid_left_sidebar.html" class="btn viewBtn">View Denim</a></div>
+            <div class="masking">
+              <%= link_to "View Denim", potepan_category_path(id:1), class:"btn viewBtn" %>
+            </div>
           </div>
           <div class="caption">
             <h4>Denim</h4>
@@ -81,59 +86,7 @@
     </div>
   </div>
 </section>
-
-<!-- LIGHT SECTION -->
-<section class="lightSection clearfix">
-  <div class="container">
-    <div class="row">
-      <div class="col-xs-12">
-        <div class="owl-carousel partnersLogoSlider">
-          <div class="slide">
-            <div class="partnersLogo clearfix">
-              <%= image_tag("home/partners/partner-01.png", :alt => "partner-img") %>
-            </div>
-          </div>
-          <div class="slide">
-            <div class="partnersLogo clearfix">
-              <%= image_tag("home/partners/partner-02.png", :alt => "partner-img") %>
-            </div>
-          </div>
-          <div class="slide">
-            <div class="partnersLogo clearfix">
-              <%= image_tag("home/partners/partner-03.png", :alt => "partner-img") %>
-            </div>
-          </div>
-          <div class="slide">
-            <div class="partnersLogo clearfix">
-              <%= image_tag("home/partners/partner-04.png", :alt => "partner-img") %>
-            </div>
-          </div>
-          <div class="slide">
-            <div class="partnersLogo clearfix">
-              <%= image_tag("home/partners/partner-05.png", :alt => "partner-img") %>
-            </div>
-          </div>
-          <div class="slide">
-            <div class="partnersLogo clearfix">
-              <%= image_tag("home/partners/partner-01.png", :alt => "partner-img") %>
-            </div>
-          </div>
-          <div class="slide">
-            <div class="partnersLogo clearfix">
-              <%= image_tag("home/partners/partner-02.png", :alt => "partner-img") %>
-            </div>
-          </div>
-          <div class="slide">
-            <div class="partnersLogo clearfix">
-              <%= image_tag("home/partners/partner-03.png", :alt => "partner-img") %>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
+<%= render "shared/partners" %>
 <!-- PORDUCT QUICK VIEW MODAL -->
 <div class="modal fade quick-view" tabindex="-1" role="dialog">
   <div class="modal-dialog">

@@ -1,150 +1,102 @@
 # ポテパンキャンプECサイトリポジトリ
+開発環境 Ruby 2.5.1 Rails 5.2.1 MySQL 8.0.18
 
-## 開発環境のセットアップ
-ポテパンキャンプで開発を行っていくため、一般的なMacでのRails開発環境のセットアップをおこないます。
+Solidusを使用し構築したECサイトになります。
 
-### homebrew のインストール
-ruby のインストールや、その他のパッケージのインストールのため、[homebrew](https://brew.sh/index_ja.html)をインストールします。
+https://damp-basin-31598.herokuapp.com
 
-ターミナルを開き、下記コマンドを入力します。
+## 主に行ったこと
 
-```bash
-ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-```
+・Rails開発環境構築
 
-### Docker のインストール
-```bash
-brew update
-brew install caskroom/cask/brew-cask
-brew cask install docker
-```
+・Solidus の解析
 
-### Docker の起動
-```bash
-open /Applications/Docker.app
-```
+・商品表示に関する実装(商品詳細、カテゴリ一覧表示、関連商品表示など)
 
-### プロジェクトのフォーク
+・Rspecによるテスト実装
 
-[potapanec](https://bitbucket.org/potepancamp/potepanec)へ移動し、左のプラスボタンをクリックします。
+# ポテパンキャンプので取り組んだ課題
 
-![](docs/images/installation/fork1.png)
+## 課題１
 
-** Fork ** this repository のリンクをクリックします。
+・開発環境のセットアップ
 
-![](docs/images/installation/fork2.png)
+## 課題２
 
-所有者が自分になっていることを確認して、リポジトリをフォークします。
+・商品詳細ページのテンプレート（potepan/sample/single_product.html.erb）を参考にして、商品詳細ページを実装してください。
 
-![](docs/images/installation/fork3.png)
+・商品のモデル名は Spree::Product です。
 
+・実装するパス は /potepan/products としてください。
 
-### プロジェクトの clone
+・ルーティングの定義には適切に namespace を利用してください。
 
-上記でフォークしたリポジトリを自分のPCにクローンします
+・app/views/layouts/application.html.erb を使用して、ヘッダーの共通化を行ってください。
 
-例：
+## 課題３
 
-```
-git clone https://[your_account_name]@bitbucket.org/[your_account_name]/potepanec.git
-```
+・カテゴリーページのテンプレート（potepan/sample/product_grid_left_sidebar.html.erb）に選択したカテゴリーの商品が一覧で動的に表示されるようにしてください。
 
-### docker-compose up
-上記でクローンしたディレクトリに移動し、ターミナルで下記コマンドを実行します
+・カテゴリー引数は taxonomies の id を取るように実装してください
 
-```bash
-docker-compose up --build
-```
+・実際のパスは /potepan/categories/:taxon_id/ となります。
 
-### 動作確認
+## 課題４
 
-以下のURLを開き、例のような画面が表示されれば正常に動作しています。
+・課題２で作成した商品ページのページ下部に表示している商品と同じカテゴリーに属する商品が表示されるように実装してください。
 
-http://localhost:3000/potepan/index.html
+## 課題５
 
-![](docs/images/installation/first_view.png)
+・トップページ（/potepan）にテンプレート（potepan/sample/index.html.erb）を使用して新着商品が表示される実装をしてください
 
-### 動作停止
-上記（docker-compose up を実行してログが標準出力中のターミナル）で表示した画面を停止し開発を中断するときにはターミナルでctrl+cを押し、更に下記コマンドを実行します
+・パスは /potepan/ です。
 
-```bash
-docker-compose stop
-```
-同時にイメージやボリュームを削除したい場合は以下の down を利用します。
+・新着商品の定義は Available On の新着とします。
 
-```bash
-docker-compose down
-```
-### 動作再開
+・app/views/layouts/application.html.erb を使用して、ヘッダーの共通化を行ってください。
 
-再度開発を進める場合、下記コマンドを実行しDockerを起動します。
+## 課題６
 
-#### コンテナ内に入らず開発を再開したい場合（ログを確認しつつ開発したい場合）
+・カテゴリー一覧ページの FILTER BY COLOR を実装してください。
 
-```bash
-# Dockerコンテナを起動
-docker-compose up
+・FILTER BY COLOR に表示される色情報は管理画面の Options Types を利用して作成してください。
 
-# 動作停止
-ctrl+c
+・色情報については、ルーティングで定義するのではなく、URLクエリを利用して実装してください。
 
-# コンテナを停止
-docker-compose stop
-```
+## 課題７
 
+・カテゴリー一覧ページで、商品の並び替えができるように実装してください。
 
-#### コンテナ内に入り開発したい場合
+・ページ上部のドロップダウンリストから並び替えを選択すると、並び替え後のページが表示されるようにしてください。
 
-```bash
-# Dockerコンテナを起動
-docker-compose up -d
+・並び替えの順序は以下としてください
+新着順
+価格の安い順
+価格の古い順
+古い順
 
-# コンテナ内にSSH接続
-docker-compose exec potepanec bash
+・また、デフォルト（初期値）は新着順での表示としてください。
 
-# コンテナ内から抜ける
-exit
+## 課題８
 
-# コンテナを停止
-docker-compose stop
-```
+・カテゴリー一覧ページの FILTER BY SIZE を実装してください。
 
-### トラブルシューティング
-#### Railsが起動しない
-```bash
-もし「A server is already running. Check /app/tmp/pids/server.pid.」のエラーでRailsが立ち上がらない場合、
-すでに起動中になってしまって2重で立ち上げようとして失敗している可能性があるので、tmp/pids/server.pidが存在している場合は削除して再度起動してみてください。
+・FILTER BY SIZE に表示されるサイズ情報は管理画面の Options Types を利用して作成してください。
 
-原因の多くは作業を中断する際、docker-composeの動作停止（ctrl+c）のみを行い、docker-compose stop を行わず、再開時にdocker-compose upで立ち上げてしまい二重立ち上げの警告が出る事が多いです。
-```
-### Dockerを使いこなそう！
+・色情報については、ルーティングで定義するのではなく、URLクエリを利用して実装してください。‌
 
-今後、Dokerを使用しながら課題を進めていくことになります。
-Dockerを使いこなせるようになりましょう。
+## 課題９
 
-[Dockerを使いこなそう](https://potepan.gitbook.io/camp/be_a_professional_developer/manage_docker)
+・ページ上部の虫眼鏡アイコンのリンクからフリーワード検索が行えるよう実装してください
 
-### 管理者権限を持ったユーザーの作成
-http://localhost:3000/admin/ にアクセスしデータベース機能を操作する場合、管理者権限を持ったユーザーの作成が必要となります。
+・検索対象は商品名及び商品説明ページとします。
 
-以下のコマンドを実行し、ご自身のメールアドレスとパスワードを設定し、アカウントを作成してください。
+・SQL の Like 検索で実装し、%等のメタキャラクタでも正しく検索が行えるよう実装してください。
 
-```bash
-bundler exec rake spree_auth:admin:create
+## 課題１０
 
-# Create the admin user (press enter for defaults).
-# Email [admin@example.com]:
-# Password [test123]:
-```
+・商品ページの カートへ入れる ボタンをクリックした際に商品がカートに保存され、カート一覧ページに追加されるようにしてください。
 
-![管理者画面 : 商品一覧](docs/images/installation/admin_screen.png "管理者画面 : 商品一覧")
+・カート一覧ページは potepan/sample/cart_page.html.erb を利用してください。
 
-予め開発で使用する商品画像などは用意されていますが、こちらの管理画面から自分で商品を登録することもできます。
-ぜひ入力・データの出力など色々と試し、データベースの使い方などに慣れて行きましょう。
-
-こちらも参考にしてみてください。
-[Solidus の管理画面を操作してみましょう](https://potepan.gitbook.io/camp/before_camp)
-
-
-### Dockerを利用しない開発環境の構築
-スペック不足など、何らかの理由でDockerでの開発が困難な場合は[こちら](./WITHOUTDOCKER.md)を参考に開発環境をセットアップしてください。
+・カート機能の実装については、Spree::OrdersController を参考にして実装を行ってください。

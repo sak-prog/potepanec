@@ -3,8 +3,6 @@
 
 Solidusを使用し構築したECサイトになります。
 
-https://damp-basin-31598.herokuapp.com
-
 ## 主に行ったこと
 
 ・Rails開発環境構築

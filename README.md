@@ -9,11 +9,15 @@ https://damp-basin-31598.herokuapp.com
 
 ・Rails開発環境構築
 
+・Docker を用いた開発
+
 ・Solidus の解析
 
 ・商品表示に関する実装(商品詳細、カテゴリ一覧表示、関連商品表示など)
 
 ・Rspecによるテスト実装
+
+・CircleCi を用いた自動テストと自動デプロイの実装
 
 # ポテパンキャンプので取り組んだ課題
 
